@@ -65,6 +65,9 @@ attach_dmg() {
 	# if "mount point" found - consider image already mounted (do not add to unmount list)
 	# otherwise mount it and add to unmount list.
 	mount_path="$(hdiutil attach "$dmg_path" -nomount -plist "$@" | grep -A1 "mount-point" | sed -n 's:.*<string>\(.*\)</string>.*:\1:p' || true)"
+	local disk="$(diskutil list | grep /dev/disk | grep -o '[[:digit:]]*' | tail -1)"
+	# local disk=$((disk+1))
+	# ((disk+=1))
 	if [ -z "$mount_path" ]; then
 		for i in {1..10}; do
 			mount_path="$(hdiutil attach "$dmg_path" -mount required -mountrandom "$mount_root" -plist "$@" | grep -A1 "mount-point" | sed -n 's:.*<string>\(.*\)</string>.*:\1:p' || true)"
@@ -72,9 +75,6 @@ attach_dmg() {
 				temp_dmg_mounts+=("$mount_path")
 				break
 			fi
-			local disk="$(diskutil list | grep /dev/disk | grep -o '[[:digit:]]*' | tail -1)"
-			disk=$((disk+1))
-			((disk+=1))
 			diskutil eject /dev/disk$disk
 			sleep 3
 		done
