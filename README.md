@@ -6,7 +6,7 @@ Fix Parallels issues
 
 ## Solution (Issue 1)
 ```
-git clone https://github.com/andreylzmw/Parallels-Fix/edit/main/README.md
+git clone https://github.com/andreylzmw/parallels-fix
 cd Parallels-Fix
 make fix 1
 ```
