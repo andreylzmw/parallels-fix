@@ -7,6 +7,6 @@ Fix Parallels issues
 ## Solution (Issue 1)
 ```
 git clone https://github.com/andreylzmw/parallels-fix
-cd Parallels-Fix
-make fix 1
+cd parallels-fix
+make fix issue=1
 ```
